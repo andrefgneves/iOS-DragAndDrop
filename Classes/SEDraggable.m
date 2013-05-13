@@ -65,11 +65,27 @@
   return self;
 }
 
+- (id) initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
 #pragma mark -- Designated initializer
 
 - (id) initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
+      [self commonInit];
+  }
+  return self;
+}
+
+- (void)commonInit
+{
     // pan gesture handling
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
     self.panGestureRecognizer.minimumNumberOfTouches = 1;
@@ -85,8 +101,7 @@
     self.previousLocation = nil;
     
     self.droppableLocations = [NSMutableSet set];
-  }
-  return self;
+   
 }
 
 - (void) dealloc {
@@ -273,33 +288,6 @@
   [encoder encodeBool:self.shouldSnapBackToDragOrigin forKey:kSHOULD_SNAP_BACK_TO_DRAG_ORIGIN_KEY];
   [encoder encodeFloat:self.firstX forKey:kFIRST_X_KEY];
   [encoder encodeFloat:self.firstY forKey:kFIRST_Y_KEY];
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-  self = [super initWithCoder:decoder];
-  if (self) {
-    if ([decoder containsValueForKey:kPAN_GESTURE_RECOGNIZER_KEY])
-      self.panGestureRecognizer = [decoder decodeObjectForKey:kPAN_GESTURE_RECOGNIZER_KEY];
-    if ([decoder containsValueForKey:kCURRENT_LOCATION_KEY])
-      self.currentLocation = [decoder decodeObjectForKey:kCURRENT_LOCATION_KEY];
-    if ([decoder containsValueForKey:kHOME_LOCATION_KEY])
-      self.homeLocation = [decoder decodeObjectForKey:kHOME_LOCATION_KEY];
-    if ([decoder containsValueForKey:kPREVIOUS_LOCATION_KEY])
-      self.previousLocation = [decoder decodeObjectForKey:kPREVIOUS_LOCATION_KEY];
-    if ([decoder containsValueForKey:kDROPPABLE_LOCATIONS_KEY])
-      self.droppableLocations = [decoder decodeObjectForKey:kDROPPABLE_LOCATIONS_KEY];
-    if ([decoder containsValueForKey:kDELEGATE_KEY])
-      self.delegate = [decoder decodeObjectForKey:kDELEGATE_KEY];
-    if ([decoder containsValueForKey:kSHOULD_SNAP_BACK_TO_HOME_LOCATION_KEY])
-      self.shouldSnapBackToHomeLocation = [decoder decodeBoolForKey:kSHOULD_SNAP_BACK_TO_HOME_LOCATION_KEY];
-    if ([decoder containsValueForKey:kSHOULD_SNAP_BACK_TO_DRAG_ORIGIN_KEY])
-      self.shouldSnapBackToDragOrigin = [decoder decodeBoolForKey:kSHOULD_SNAP_BACK_TO_DRAG_ORIGIN_KEY];
-    if ([decoder containsValueForKey:kFIRST_X_KEY])
-      firstX = [decoder decodeFloatForKey:kFIRST_X_KEY];
-    if ([decoder containsValueForKey:kFIRST_Y_KEY])
-      firstY = [decoder decodeFloatForKey:kFIRST_Y_KEY];
-  }
-  return self;
 }
 
 @end
