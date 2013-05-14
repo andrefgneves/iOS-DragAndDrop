@@ -132,7 +132,12 @@
     // keep track of where the movement began
     firstX = [self center].x;
     firstY = [self center].y;
+
+      if ([self.delegate respondsToSelector:@selector(draggableObjectDidStartMoving:)]) {
+          [self.delegate draggableObjectDidStartMoving:self];
+      }
   }
+
   translatedPoint = CGPointMake(firstX + translatedPoint.x, firstY + translatedPoint.y);
   [self setCenter:translatedPoint];
   
