@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary  = 'Drag and drop UIView subclasses for iOS'
   s.homepage = 'https://github.com/andrefgneves/iOS-DragAndDrop'
   s.author   = { 'bryn austin bellomy' => 'bryn@signals.io' }
-  s.source   = { :git => 'https://github.com/andrefgneves/iOS-DragAndDrop.git' }
+  s.source   = { :git => 'https://github.com/andrefgneves/iOS-DragAndDrop.git', :tag => '1.0.2' }
   s.platform = :ios
   s.source_files = 'Classes', 'Classes/**/*.{h,m}'
   s.requires_arc = true
